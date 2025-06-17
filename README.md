@@ -1,2 +1,0 @@
-# ats
-machuda mocking webapp
