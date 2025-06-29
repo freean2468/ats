@@ -1,7 +1,3 @@
-```sh
-docker compose up --build
-```
-
 # mvc
 
 ```sh
@@ -30,4 +26,10 @@ curl https://start.spring.io/starter.zip \
 
 ```sh
 ./gradlew clean build
+```
+
+# run
+
+```sh
+docker compose up --build
 ```

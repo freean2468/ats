@@ -1,0 +1,30 @@
+[]: 
+
+# ------ COMMIT END ------
+# Type: Commit의 성격을 나타내며 선택할 수 있는 값은 아래와 같다.
+#   Feat: 새로운 기능 추가
+#   Fix: 버그 수정
+#   Test: 테스트 코드 작성 혹은 수정
+#   Migration: DB Migration File 추가(해당 Commit을 Pull하면 DB Migrate를 진행해야 함)
+#   Config: 환경설정 수정
+#   Refactor: 코드 리팩토링
+#   File: .py 외의 File 관련(Dockerfile, requirements.txt 등)
+#   Style: 코드 의미에 영향을 주지 않는 수정(Import Optimize, newline 등)
+#   Annotation: 주석 작성 혹은 수정
+#   Infra : Infra 수정
+#   Workflow: GitHub Actions workflow 수정
+#
+# Subject: 제목으로, 동사로 문장을 시작하며 사실 전달을 위해 현재 시제를 사용한다.
+#
+# Body: 본문 내용으로, 생략 가능하다.
+#
+# Footer: 관련 Commit, Issue 등을 작성하며 생략 가능하다. 경우에 따라 아래와 같이 작성한다.
+#   Commit의 경우, commit: <commit id>
+#   Issue의 경우, Issue: <issue id>
+#   이외의 경우, Refs: <description>
+#
+# Example
+# [Fix]: Fix login view's encryption algorithm error.
+#
+# Commit: 7688ff3
+# Issue: 31
