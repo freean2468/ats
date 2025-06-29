@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  mvc:
+    build: ./mvc
+    container_name: spring_mvc
+    ports:
+      - "8081:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  webflux:
+    build: ./webflux
+    container_name: spring_webflux
+    ports:
+      - "8082:8080"
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
