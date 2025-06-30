@@ -19,3 +19,9 @@ public class WebfluxApplication {
         return Mono.just("{\"message\":\"Hello from WebFlux\"}");
     }
 }
+
+@GetMapping("/dbtest")
+public String dbTest() {
+    jdbcTemplate.queryForObject("SELECT now()", String.class);
+    return "ok";
+}

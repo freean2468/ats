@@ -1,15 +1,17 @@
-version: "3.8"
-
 services:
   mvc:
     build: ./mvc
     container_name: spring_mvc
     ports:
       - "8081:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/benchmarkdb
+      - SPRING_DATASOURCE_USERNAME=benchmark
+      - SPRING_DATASOURCE_PASSWORD=benchmark
     deploy:
       resources:
         limits:
-          cpus: "1.0"
+          cpus: "2.0"
           memory: 512M
 
   webflux:
@@ -17,8 +19,32 @@ services:
     container_name: spring_webflux
     ports:
       - "8082:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/benchmarkdb
+      - SPRING_DATASOURCE_USERNAME=benchmark
+      - SPRING_DATASOURCE_PASSWORD=benchmark
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 512M
+
+  postgres:
+    image: postgres:17
+    container_name: benchmark_postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: benchmarkdb
+      POSTGRES_USER: benchmark
+      POSTGRES_PASSWORD: benchmark
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     deploy:
       resources:
         limits:
           cpus: "1.0"
           memory: 512M
+
+volumes:
+  pgdata:

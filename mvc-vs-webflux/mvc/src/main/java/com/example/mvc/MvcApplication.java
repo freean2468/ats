@@ -20,3 +20,9 @@ public class MvcApplication {
         return "{\"message\":\"Hello from MVC\"}";
     }
 }
+
+@GetMapping("/dbtest")
+public String dbTest() {
+    jdbcTemplate.queryForObject("SELECT now()", String.class);
+    return "ok";
+}

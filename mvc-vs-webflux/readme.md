@@ -28,8 +28,10 @@ curl https://start.spring.io/starter.zip \
 ./gradlew clean build
 ```
 
-# run
+# docker build & run
 
 ```sh
 docker compose up --build
+docker compose up -d
+docker compose logs -f
 ```
