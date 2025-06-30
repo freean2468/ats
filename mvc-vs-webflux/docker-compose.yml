@@ -20,9 +20,9 @@ services:
     ports:
       - "8082:8080"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/benchmarkdb
-      - SPRING_DATASOURCE_USERNAME=benchmark
-      - SPRING_DATASOURCE_PASSWORD=benchmark
+      - SPRING_R2DBC_URL=r2dbc:postgresql://postgres:5432/benchmarkdb
+      - SPRING_R2DBC_USERNAME=benchmark
+      - SPRING_R2DBC_PASSWORD=benchmark
     deploy:
       resources:
         limits:
@@ -43,7 +43,7 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "1.0"
+          cpus: "2.0"
           memory: 512M
 
 volumes:
