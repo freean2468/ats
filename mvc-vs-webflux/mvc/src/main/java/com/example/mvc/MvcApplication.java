@@ -1,3 +1,4 @@
+// File: mvc-vs-webflux/mvc/src/main/java/com/example/mvc/MvcApplication.java
 package com.example.mvc;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,5 +30,11 @@ public class MvcApplication {
     public String dbTest() {
         String time = jdbcTemplate.queryForObject("SELECT now()", String.class);
         return "{\"dbTime\":\"" + time + "\"}";
+    }
+
+    @GetMapping("/dbtest/slow")
+    public String dbTestWithLatency() throws InterruptedException {
+        String time = jdbcTemplate.queryForObject("SELECT now() FROM pg_sleep(0.1)", String.class);
+        return "{\"dbTimeWithLatency\":\"" + time + "\"}";
     }
 }

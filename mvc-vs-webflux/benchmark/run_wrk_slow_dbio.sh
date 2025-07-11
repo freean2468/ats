@@ -1,4 +1,4 @@
-# run_wrk_dbio.sh
+# run_wrk_slow_dbio.sh
 #!/bin/bash
 
 # Define concurrency levels
@@ -7,15 +7,15 @@ concurrencies=(1 2 4 8 16 32 64 128)
 threads=(1)
 
 # Target endpoints
-mvc_url="http://localhost:8081/api/dbtest"
-webflux_url="http://localhost:8082/api/dbtest"
+mvc_url="http://localhost:8081/api/dbtest/slow"
+webflux_url="http://localhost:8082/api/dbtest/slow"
 
 # Duration
 duration="10s"
 timeout="60s"
 
 # Output CSV file
-output_file="./results/dbio/6t_2c1024m_mvc200_wf4.csv"
+output_file="./results/dbio_slow/6t_2c1024m_mvc200_wf4.csv"
 
 # Write CSV header
 echo "Framework,Threads,Concurrency,RequestsPerSec,TransferPerSec,AvgLatencyMs,MaxLatencyMs" > "$output_file"

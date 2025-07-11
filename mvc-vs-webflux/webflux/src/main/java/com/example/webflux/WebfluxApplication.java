@@ -1,4 +1,9 @@
+// File: mvc-vs-webflux/webflux/src/main/java/com/example/webflux/WebfluxApplication.java
+
 package com.example.webflux;
+
+import java.time.Duration;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
@@ -8,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.netty.handler.timeout.TimeoutException;
 import reactor.core.publisher.Mono;
 
 @SpringBootApplication
@@ -31,10 +37,31 @@ public class WebfluxApplication {
 
     @GetMapping("/dbtest")
     public Mono<String> dbTest() {
-        return databaseClient
-            .sql("SELECT now() AS now")
+        return databaseClient.sql("SELECT now() AS now")
             .fetch()
-            .one()
-            .map(row -> "{\"dbTime\":\"" + row.get("now") + "\"}");
+            .first()
+            .map(row -> {
+                return "{\"dbTime\":\"" + String.valueOf(row.get("now")) + "\"}";
+            });
     }
+
+    @GetMapping("/dbtest/slow")
+    public Mono<String> dbTestSlow() {
+        return databaseClient.sql("SELECT now() AS now, pg_sleep(0.1)")
+            .fetch()
+            .first()
+            .timeout(Duration.ofSeconds(60))
+            .onErrorResume(TimeoutException.class, e -> Mono.just(Map.of()))
+            // .doOnError(e -> {
+            //     System.err.println("DB fetch error: " + e);
+            // })
+            // .doFinally(signalType -> {
+            //     System.out.println("dbTestSlow terminated with signal: " + signalType);
+            // })
+            .map(row -> {
+                return "{\"dbTime\":\"" + String.valueOf(row.get("now")) + "\"}";
+            });
+    }
+
+
 }

@@ -12,7 +12,7 @@ services:
       resources:
         limits:
           cpus: "2.0"
-          memory: 512M
+          memory: 1024M
 
   webflux:
     build: ./webflux
@@ -27,7 +27,7 @@ services:
       resources:
         limits:
           cpus: "2.0"
-          memory: 512M
+          memory: 1024M
 
   postgres:
     image: postgres:17
@@ -44,7 +44,7 @@ services:
       resources:
         limits:
           cpus: "2.0"
-          memory: 512M
+          memory: 1024M
 
 volumes:
   pgdata:
