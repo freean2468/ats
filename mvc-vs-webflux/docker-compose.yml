@@ -1,28 +1,58 @@
 services:
-  mvc:
-    build: ./mvc
-    container_name: spring_mvc
+  # mvc:
+  #   build: ./mvc
+  #   container_name: spring_mvc
+  #   ports:
+  #     - "8081:8080"
+  #   environment:
+  #     - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/benchmarkdb
+  #     - SPRING_DATASOURCE_USERNAME=benchmark
+  #     - SPRING_DATASOURCE_PASSWORD=benchmark
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "2.0"
+  #         memory: 1024M
+
+  # webflux:
+  #   build: ./webflux
+  #   container_name: spring_webflux
+  #   ports:
+  #     - "8082:8080"
+  #   environment:
+  #     - SPRING_R2DBC_URL=r2dbc:postgresql://postgres:5432/benchmarkdb
+  #     - SPRING_R2DBC_USERNAME=benchmark
+  #     - SPRING_R2DBC_PASSWORD=benchmark
+  #   deploy:
+  #     resources:
+  #       limits:
+  #         cpus: "2.0"
+  #         memory: 1024M
+
+  nextjs:
+    build: ./nextjs
+    container_name: benchmark_nextjs
     ports:
-      - "8081:8080"
+      - "3000:3000"
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/benchmarkdb
-      - SPRING_DATASOURCE_USERNAME=benchmark
-      - SPRING_DATASOURCE_PASSWORD=benchmark
+      - DATABASE_URL=postgresql://benchmark:benchmark@postgres:5432/benchmarkdb
+    depends_on:
+      - postgres
     deploy:
       resources:
         limits:
           cpus: "2.0"
           memory: 1024M
 
-  webflux:
-    build: ./webflux
-    container_name: spring_webflux
+  django:
+    build: ./django
+    container_name: benchmark_django
     ports:
-      - "8082:8080"
+      - "8000:8000"
     environment:
-      - SPRING_R2DBC_URL=r2dbc:postgresql://postgres:5432/benchmarkdb
-      - SPRING_R2DBC_USERNAME=benchmark
-      - SPRING_R2DBC_PASSWORD=benchmark
+      - DATABASE_URL=postgresql://benchmark:benchmark@postgres:5432/benchmarkdb
+    depends_on:
+      - postgres
     deploy:
       resources:
         limits:

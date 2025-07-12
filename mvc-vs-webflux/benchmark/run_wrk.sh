@@ -61,7 +61,7 @@ for c in "${concurrencies[@]}"; do
     parse_wrk_output "SpringMVC" "$t" "$c" "$mvc_result"
 
     echo "🔁 Benchmarking Spring WebFlux - Threads: $t Concurrency: $c"
-    webflux_result=$(wrk -t"$t" -c"$c" --timeout "$timeout" -d"$duration" "$webflux_url")
+    webflux_result=$(wrk -t"$t" -c"$c" --timeout "$timeout" -d"$duration" -s"./stream.lua" "$webflux_url")
     parse_wrk_output "SpringWebFlux" "$t" "$c" "$webflux_result"
   done
 done
